@@ -34,6 +34,7 @@ que contenga las funciones para realizar las cinco operaciones.
 #include "biblioteca.h"
 #include "operaciones.h"
 
+
 int main(void) {
 	setbuf(stdout,NULL);
 
