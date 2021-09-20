@@ -25,6 +25,7 @@ void menuPrincipal(){
 
 	    do
 	    {
+	    	printf("\n");
 	    	printf("\n*Bienvenido al menu* ");
 	    	printf("\n Ingrese 0 para ingresar numeros A y B:");
 			printf ("\nLas operaciones posibles son : \n");
