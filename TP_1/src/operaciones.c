@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "biblioteca.h"
 #include "operaciones.h"
+
+#include "menu.h"
 /***
  * @fn int suma(int, int)
  * @brief Recibe dos numeros y los suma
@@ -15,7 +16,6 @@
 
 int suma(int numeroA, int numeroB){
 	int resultadoSuma;
-
 	resultadoSuma= numeroA+numeroB;
 
 	return resultadoSuma;
@@ -81,7 +81,7 @@ int multiplicacion(int numeroA, int numeroB){
 /***
  * @fn long int factorial(int)
  * @brief recibe un numero y realiza su factorial
- *
+ *	valida que si el numero es negativo o 0 y devuelve un error o 1 segun sea el caso
  * @pre
  * @post
  * @param A o B 1er operando

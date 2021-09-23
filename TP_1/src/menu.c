@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "biblioteca.h"
+#include "menu.h"
 #include "operaciones.h"
 
 /***
@@ -37,6 +37,7 @@ void menuPrincipal(){
 			printf ("\n6) Calcular el factorial (B!) ");
 			printf ("\n7) Salir del menu \n");
 	    	scanf("%d", &opcion);
+
 
 			switch(opcion)
 				{
