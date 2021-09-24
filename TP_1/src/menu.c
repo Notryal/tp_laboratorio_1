@@ -2,20 +2,13 @@
 #include <stdlib.h>
 #include "menu.h"
 #include "operaciones.h"
+#include "input.h"
 
-/***
- * @fn void menuPrincipal()
- * @brief Es el menu principal, muestra las opciones,
- * llama funciones en caso de realizar una operacion y muestra los resultados
- *
- * @pre
- * @post
- */
 
 void menuPrincipal(){
 	int opcion;
-	int numeroA;
-	int numeroB;
+	float numeroA;
+	float  numeroB;
     int resultadoSuma;
     int resultadoResta;
     int resultadoDivision;
@@ -34,7 +27,6 @@ void menuPrincipal(){
 			printf("\n 4- Informar resultados");
 			printf ("\n5- Salir del menu \n");
 	    	scanf("%d", &opcion);
-
 
 			switch(opcion)
 				{
