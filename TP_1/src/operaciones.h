@@ -29,7 +29,7 @@ int resta(int numeroA, int numeroB);
  * @param B 2do operando
  * @return resultado de la division
  */
-int division(int numeroA, int numeroB);
+float division(int numeroA, int numeroB);
 
 /***
  * @fn int multiplicacion(int, int)

@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "operaciones.h"
+#include <string.h>
 
+#include "operaciones.h"
 #include "menu.h"
 
 
@@ -24,13 +25,13 @@ int resta(int numeroA, int numeroB){
 }
 
 
-int division(int numeroA, int numeroB){
-	int resultadoDivision;
+float division(int numeroA, int numeroB){
+	float resultadoDivision;
 
 	if(numeroB!=0){
-		resultadoDivision= numeroA/numeroB;
+		resultadoDivision= (float)numeroA/numeroB;
 	}else{
-		resultadoDivision=printf("Es imposible entre 0 o 0 como divisor");
+		resultadoDivision=printf("No se dividir con 0 como divisor");
 	}
 	return resultadoDivision;
 }
@@ -51,7 +52,7 @@ long int factorial(int numero){
 
 	if(numero==0){
 		resultadoFactorial=1;
-	}else if(numero>0){
+	}else if(numero<0){
 			for (i = numero; i > 0; i--)
 				{
 				resultadoFactorial *= i;

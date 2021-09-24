@@ -31,10 +31,11 @@ que contenga las funciones para realizar las cinco operaciones.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "menu.h"
 #include "operaciones.h"
-#include "input.h"
+
 
 
 int main(void) {

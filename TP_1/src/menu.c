@@ -1,31 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include "menu.h"
 #include "operaciones.h"
-#include "input.h"
+
 
 
 void menuPrincipal(){
 	int opcion;
-	float numeroA;
-	float  numeroB;
+	int numeroA;
+	int  numeroB;
     int resultadoSuma;
     int resultadoResta;
-    int resultadoDivision;
+    float resultadoDivision;
     int resultadoMultiplicacion;
     long int resultadoFactorialA;
     long int resultadoFactorialB;
     int flagA =0;
     int flagB =0;
+    int flagC =0;
 	    do
 	    {
 	    	printf("\n");
 	    	printf("\n*Bienvenido al menu*");
-	    	printf("\n 1- Ingrese 1er Operando A=x");
-			printf("\n 2- Ingrese 2do Operando B=y");
-			printf("\n 3- Calcular todas las operaciones");
-			printf("\n 4- Informar resultados");
-			printf ("\n5- Salir del menu \n");
+	    	printf("\n1- Ingrese 1er Operando A=x");
+			printf("\n2- Ingrese 2do Operando B=y");
+			printf("\n3- Calcular todas las operaciones");
+			printf("\n4- Informar resultados");
+			printf("\n5- Salir del menu");
+			printf("\nElija su opcion : ");
 	    	scanf("%d", &opcion);
 
 			switch(opcion)
@@ -44,7 +48,7 @@ void menuPrincipal(){
 				break;
 				case 3:
 					if(flagA==0 && flagB==0){
-						printf("Por favor ingresar numeros A y B, presione la opcion 1")
+						printf("Por favor ingresar numeros A y B, presione la opcion 1");
 					}else{
 						resultadoSuma=suma(numeroA,numeroB);
 						resultadoResta=resta(numeroA,numeroB);
@@ -52,15 +56,20 @@ void menuPrincipal(){
 						resultadoMultiplicacion=multiplicacion(numeroA,numeroB);
 						resultadoFactorialA=factorial(numeroA);
 						resultadoFactorialB=factorial(numeroB);
+						flagC=1;
 					}
 					break;
 				case 4:
-					printf("\n El resultado de %d+%d es: %d",numeroA, numeroB,resultadoSuma);
-					printf("\n El resultado de %d-%d es: %d",numeroA, numeroB,resultadoResta);
-					printf("\n El resultado de %d/%d es: %d",numeroA, numeroB,resultadoDivision);
-					printf("\n El resultado de %d*%d es: %d",numeroA, numeroB,resultadoMultiplicacion);
-					printf("\n El factorial de %d! es: %ld",numeroA, resultadoFactorialA);
-					printf("\n El factorial de %d! es: %ld",numeroB, resultadoFactorialB);
+					if(flagC==0){
+						printf("No hay ningun resultado por mostrar, ingrese 3 primero y luego 4");
+					}else{
+						printf("\n El resultado de %d+%d es: %d",numeroA, numeroB,resultadoSuma);
+						printf("\n El resultado de %d-%d es: %d",numeroA, numeroB,resultadoResta);
+						printf("\n El resultado de %d/%d es: %.2f",numeroA, numeroB,resultadoDivision);
+						printf("\n El resultado de %d*%d es: %d",numeroA, numeroB,resultadoMultiplicacion);
+						printf("\n El factorial de %d! es: %ld",numeroA, resultadoFactorialA);
+						printf("\n El factorial de %d! es: %ld",numeroB, resultadoFactorialB);
+					}
 					break;
 				case 5:
 					printf("\n Hasta luego!");
