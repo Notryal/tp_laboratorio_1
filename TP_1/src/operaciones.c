@@ -4,7 +4,7 @@
 
 #include "operaciones.h"
 #include "menu.h"
-
+#include "input.h"
 
 
 int suma(int numeroA, int numeroB){
@@ -30,9 +30,8 @@ float division(int numeroA, int numeroB){
 
 	if(numeroB!=0){
 		resultadoDivision= (float)numeroA/numeroB;
-	}else{
-		resultadoDivision=printf("No se dividir con 0 como divisor");
 	}
+
 	return resultadoDivision;
 }
 
@@ -57,8 +56,6 @@ long int factorial(int numero){
 				{
 				resultadoFactorial *= i;
 				}
-	}else{
-		printf("Incorrecto, el numero ingresado es un numero negativo");
 	}
 
 	return resultadoFactorial;

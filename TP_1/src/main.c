@@ -33,10 +33,9 @@ que contenga las funciones para realizar las cinco operaciones.
 #include <stdlib.h>
 #include <string.h>
 
-#include "menu.h"
 #include "operaciones.h"
-
-
+#include "menu.h"
+#include "input.h"
 
 int main(void) {
 	setbuf(stdout,NULL);
