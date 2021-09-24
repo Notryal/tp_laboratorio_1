@@ -3,16 +3,8 @@
 #include "operaciones.h"
 
 #include "menu.h"
-/***
- * @fn int suma(int, int)
- * @brief Recibe dos numeros y los suma
- *
- * @pre
- * @post
- * @param A 1er operando
- * @param B 2do operando
- * @return resultado de la Suma
- */
+
+
 
 int suma(int numeroA, int numeroB){
 	int resultadoSuma;
@@ -21,16 +13,7 @@ int suma(int numeroA, int numeroB){
 	return resultadoSuma;
 }
 
-/***
- * @fn int resta(int, int)
- * @brief Recibe dos numeros y los resta
- *
- * @pre
- * @post
- * @param A 1er operando
- * @param B 2do operando
- * @return resultado de la Resta
- */
+
 
 int resta(int numeroA, int numeroB){
 	int resultadoResta;
@@ -39,16 +22,7 @@ int resta(int numeroA, int numeroB){
 
 	return resultadoResta;
 }
-/***
- * @fn int division(int, int)
- * @brief Recibe dos numeros y los divide, verifica que el divisor sea distinto de 0
- *
- * @pre
- * @post
- * @param A 1er operando
- * @param B 2do operando
- * @return resultado de la division
- */
+
 
 int division(int numeroA, int numeroB){
 	int resultadoDivision;
@@ -61,16 +35,7 @@ int division(int numeroA, int numeroB){
 	return resultadoDivision;
 }
 
-/***
- * @fn int multiplicacion(int, int)
- * @brief Recibe dos numeros y los multiplica
- *
- * @pre
- * @post
- * @param A 1er operando
- * @param B 2do operando
- * @return resultado de la multiplicacion
- */
+
 
 int multiplicacion(int numeroA, int numeroB){
 	int resultadoMultiplicacion;
@@ -78,16 +43,7 @@ int multiplicacion(int numeroA, int numeroB){
 	resultadoMultiplicacion= numeroA*numeroB;
 	return resultadoMultiplicacion;
 }
-/***
- * @fn long int factorial(int)
- * @brief recibe un numero y realiza su factorial
- *	valida que si el numero es negativo o 0 y devuelve un error o 1 segun sea el caso
- * @pre
- * @post
- * @param A o B 1er operando
 
- * @return resultado de la factorial
- */
 
 long int factorial(int numero){
 	long int resultadoFactorial=1;
