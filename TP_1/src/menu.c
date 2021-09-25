@@ -9,8 +9,8 @@
 
 void menuPrincipal(){
 	int opcion;
-	int numeroA;
-	int numeroB;
+	int numeroA=0;
+	int numeroB=0;
     int resultadoSuma;
     int resultadoResta;
     float resultadoDivision;
