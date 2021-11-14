@@ -22,7 +22,13 @@ int menu();
 
 int main()
 {
-    int option = 0;
+	setbuf(stdout,NULL);
+	char confirmar[4];
+	int opcion = 0;
+	int flagSaveTxt = 0;
+	int flagSaveBin = 0;
+	int id=1000;
+
     int flagA = 0;
     int rtnAux;
     LinkedList* empleados = ll_newLinkedList();
@@ -73,37 +79,103 @@ int main()
 
             	break;
             case 3:
-
-
-
-
-
-
+				if(!controller_addEmployee(empleados,&id))
+				{
+					controller_saveAsTextID("id.csv",empleados,id);
+				}
             	break;
-            case 4:
+			case 4:
+				if(!ll_isEmpty(empleados))
+				{
+					controller_editEmployee(empleados);
+				}
+				else
+				{
+					printf("No hay empleados para modificar");
+				}
+				break;
+			case 5:
+				if(!ll_isEmpty(empleados))
+				{
+					controller_removeEmployee(empleados);
+				}
+				else
+				{
+					printf("No hay empleados para dar de baja");
+				}
+				break;
+			case 6:
+				if(!ll_isEmpty(empleados))
+				{
+					controller_ListEmployee(empleados);
+				}
+				else
+				{
+					printf("No hay empleados para mostrar");
+				}
+				break;
+			case 7:
+				if(!ll_isEmpty(empleados))
+				{
+					controller_sortEmployee(empleados);
+				}
+				else
+				{
+					printf("No hay empleados para mostrar");
+				}
+				break;
+			case 8:
+				if(!ll_isEmpty(empleados))
+				{
+					controller_saveAsText("data2.csv",empleados);
+					controller_saveAsTextID("id.csv",empleados,id);
+					flagSaveTxt=1;
+				}
+				else
+				{
+					printf("No hay empleados para guardar");
+				}
+				break;
+			case 9:
+				if(!ll_isEmpty(empleados))
+				{
+					controller_saveAsBinary("data.bin",empleados);
+					controller_saveAsTextID("id.csv",empleados,id);
+					flagSaveBin=1;
+				}
+				else
+				{
+					printf("No hay empleados para guardar");
+				}
+				break;
+			case 10:
+				if((flagSaveTxt==0) && (flagSaveBin==0))
+				{
+					utn_getString(confirmar,4,3,"\nEsta seguro que desea salir sin guardar?[si/no]\n","\nRespuesta invalida, ingrese [si/no]\n");
+					if(stricmp(confirmar,"si"))
+					{
+						utn_getInt(&opcion,1,2,3,"\n1. Guardar modo texto\n2. Guardar modo binario\n","\nRespuesta invalida, ingrese [1/2]\n");
+						if(opcion==1)
+						{
+							controller_saveAsText("data2.csv",empleados);
+							strcpy(confirmar,"si");
+						}
+						else
+						{
+							controller_saveAsBinary("data.bin",empleados);
+							strcpy(confirmar,"si");
+						}
+					}
+				}
+				else
+				{
+					strcpy(confirmar,"si");
+				}
 
-            	break;
-            case 5:
-
-            	break;
-            case 6:
-
-            	break;
-            case 7:
-
-            	break;
-            case 8:
-
-            	break;
-            case 9:
-
-            	break;
-            case 10:
-
-            	break;
-        }
-
-    }while(option != 10);
+				break;
+		}
+	}while(stricmp(confirmar,"si"));
+	printf("Gracias por utilizar nuestro servicio");
     return 0;
 }
 

@@ -63,7 +63,7 @@ void employee_delete(Employee* this){
 	//return rtn;
 }
 
-int employee_add(LinkedList* listaEmpleados, int* id)
+int employee_add(LinkedList* empleados, int* id)
 {
 	int rtn = -1;
 	char respuesta[4];
@@ -73,7 +73,7 @@ int employee_add(LinkedList* listaEmpleados, int* id)
 	int auxiliarSueldo;
 	Employee* auxEmpleado = NULL;
 
-	if(listaEmpleados!=NULL && id!=NULL)
+	if(empleados!=NULL && id!=NULL)
 	{
 		auxEmpleado = employee_new();
 
@@ -94,7 +94,7 @@ int employee_add(LinkedList* listaEmpleados, int* id)
 
 					if(!(stricmp(respuesta,"si")))
 					{
-						ll_add(listaEmpleados, auxEmpleado);
+						ll_add(empleados, auxEmpleado);
 						*id=auxiliarID;
 						rtn=0;
 					}
@@ -146,16 +146,16 @@ int employee_printOneEmployee(Employee* this)
 	return rtn;
 }
 
-int employee_printList(LinkedList* listaEmpleados)
+int employee_printList(LinkedList* empleados)
 {
 	int rtn = -1;
 	int len;
 	int i;
 	Employee* aux = NULL;
 
-	if(listaEmpleados!=NULL)
+	if(empleados!=NULL)
 	{
-		len = ll_len(listaEmpleados);
+		len = ll_len(empleados);
 
 		if(len>0)
 		{
@@ -163,7 +163,7 @@ int employee_printList(LinkedList* listaEmpleados)
 
 			for(i=0; i<len ;i++)
 			{
-				aux = (Employee*) ll_get(listaEmpleados,i);
+				aux = (Employee*) ll_get(empleados,i);
 
 				if(aux != NULL)
 				{
@@ -177,22 +177,22 @@ int employee_printList(LinkedList* listaEmpleados)
 	return rtn;
 }
 
-int employee_findID(LinkedList* listaEmpleados, int id)
+int employee_findID(LinkedList* empleados, int id)
 {
 	int i;
 	int len;
 	int index;
 	Employee* auxiliar;
 
-	if(listaEmpleados!=NULL)
+	if(empleados!=NULL)
 	{
-		len = ll_len(listaEmpleados);
+		len = ll_len(empleados);
 
 		if(len>0)
 		{
 			for(i=0; i<len ;i++)
 			{
-				auxiliar = (Employee*)ll_get(listaEmpleados,i);
+				auxiliar = (Employee*)ll_get(empleados,i);
 				if(auxiliar->id==id)
 				{
 					index=i;
@@ -206,7 +206,7 @@ int employee_findID(LinkedList* listaEmpleados, int id)
 }
 
 
-int employee_remove(LinkedList* listaEmpleados)
+int employee_remove(LinkedList* empleados)
 {
 	int rtn = -1;
 	int id;
@@ -214,21 +214,21 @@ int employee_remove(LinkedList* listaEmpleados)
 	char respuesta[4];
 	Employee* aux = NULL;
 
-	if(listaEmpleados!=NULL)
+	if(empleados!=NULL)
 	{
-		employee_printList(listaEmpleados);
+		employee_printList(empleados);
 		utn_getInt(&id,1,5000,2,"Ingrese el ID para dar de baja: \n","Error, ID invalido\n");
-		index = employee_findID(listaEmpleados,id);
+		index = employee_findID(empleados,id);
 
 		if(index!=-1)
 		{
-			aux = ll_get(listaEmpleados,index);
+			aux = ll_get(empleados,index);
 			employee_printOneEmployee(aux);
 			utn_getString(respuesta,4,2,"\n¿Esta seguro que desea eliminar este empleado?[si/no]\n","\nRespuesta invalida, ingrese [si/no]\n");
 
 			if(!(stricmp(respuesta,"si")))
 			{
-				ll_remove(listaEmpleados,index);
+				ll_remove(empleados,index);
 				printf("Baja realizada con exito\n");
 			}
 			else
@@ -245,7 +245,7 @@ int employee_remove(LinkedList* listaEmpleados)
 	return rtn;
 }
 
-int employee_modify(LinkedList* listaEmpleados)
+int employee_modify(LinkedList* empleados)
 {
 	int rtn = -1;
 	int id;
@@ -256,15 +256,15 @@ int employee_modify(LinkedList* listaEmpleados)
 	Employee auxiliar;
 	strcpy(confirmar,"no");
 
-	if(listaEmpleados!=NULL)
+	if(empleados!=NULL)
 	{
-		employee_printList(listaEmpleados);
+		employee_printList(empleados);
 		utn_getInt(&id,1,5000,3,"Ingrese el ID para modificar\n","Error, ID invalido\n");
-		index = employee_findID(listaEmpleados,id);
+		index = employee_findID(empleados,id);
 
 		if(index!=-1)
 		{
-			aux = (Employee*) ll_get(listaEmpleados,index);
+			aux = (Employee*) ll_get(empleados,index);
 			auxiliar=*aux;
 			employee_printOneEmployee(&auxiliar);
 			utn_getString(respuesta,4,3,"\n¿Esta seguro que desea editar este empleado?[si/no]\n","\nRespuesta invalida, ingrese [si/no]\n");
@@ -279,13 +279,13 @@ int employee_modify(LinkedList* listaEmpleados)
 							utn_getString(confirmar,4,3,"\n¿Esta seguro que desea salir?[si/no]\n","\nRespuesta invalida, ingrese [si/no]\n");
 							break;
 						case 1:
-							employeeNombre(listaEmpleados,index,auxiliar);
+							employeeNombre(empleados,index,auxiliar);
 							break;
 						case 2:
-							employeeHoras(listaEmpleados,index,auxiliar);
+							employeeHoras(empleados,index,auxiliar);
 							break;
 						case 3:
-							employeeSueldo(listaEmpleados,index,auxiliar);
+							employeeSueldo(empleados,index,auxiliar);
 							break;
 					}
 				}while(stricmp(confirmar,"si"));
@@ -309,13 +309,13 @@ int employee_modify(LinkedList* listaEmpleados)
 	return rtn;
 }
 
-int employeeNombre(LinkedList* listaEmpleados, int index, Employee auxiliar)
+int employeeNombre(LinkedList* empleados, int index, Employee auxiliar)
 {
 	int rtn = -1;
 	char auxNombre[128];
 	int opciones;
 
-	if(listaEmpleados!=NULL && index!=-1)
+	if(empleados!=NULL && index!=-1)
 	{
 		printf("\t****MODIFICAR NOMBRE****\t\n");
 		utn_getString(auxNombre,128,3,"Ingrese el nuevo nombre\n","Error, nombre invalido\n");
@@ -327,7 +327,7 @@ int employeeNombre(LinkedList* listaEmpleados, int index, Employee auxiliar)
 		utn_getInt(&opciones,0,1,3,"\n¿Esta seguro que desea modificarlo? [1/0]\n","\nRespuesta invalida, ingrese [1/0]\n");
 		if(opciones)
 		{
-			employee_modifyNombre(listaEmpleados,index,auxNombre);
+			employee_modifyNombre(empleados,index,auxNombre);
 			rtn=0;
 		}
 		else
@@ -339,13 +339,13 @@ int employeeNombre(LinkedList* listaEmpleados, int index, Employee auxiliar)
 	return rtn;
 }
 
-int employeeHoras(LinkedList* listaEmpleados, int index, Employee auxiliar)
+int employeeHoras(LinkedList* empleados, int index, Employee auxiliar)
 {
 	int rtn = -1;
 	int auxHoras;
 	int opciones;
 
-	if(listaEmpleados!=NULL && index!=-1)
+	if(empleados!=NULL && index!=-1)
 	{
 		puts("\tMODIFICACION HORAS\t\n");
 		utn_getInt(&auxHoras,1,500,3,"Ingrese la nueva cantidad de horas\n","Error, cantidad invalida\n");
@@ -355,7 +355,7 @@ int employeeHoras(LinkedList* listaEmpleados, int index, Employee auxiliar)
 		utn_getInt(&opciones,0,1,3,"\n¿Esta seguro que desea modificarlo? (1 o 0)\n","\nRespuesta invalida, ingrese [1/0]\n");
 		if(opciones)
 		{
-			employee_modifyHorasTrabajadas(listaEmpleados,index,auxHoras);
+			employee_modifyHorasTrabajadas(empleados,index,auxHoras);
 			rtn=0;
 		}
 		else
@@ -366,13 +366,13 @@ int employeeHoras(LinkedList* listaEmpleados, int index, Employee auxiliar)
 	return rtn;
 }
 
-int employeeSueldo(LinkedList* listaEmpleados, int index, Employee auxiliar)
+int employeeSueldo(LinkedList* empleados, int index, Employee auxiliar)
 {
 	int rtn = -1;
 	int auxSueldo;
 	int opciones;
 
-	if(listaEmpleados!=NULL && index!=-1)
+	if(empleados!=NULL && index!=-1)
 	{
 		puts("\tMODIFICACION SUELDO\t\n");
 		utn_getInt(&auxSueldo,1000,500000,3,"Ingrese el nuevo sueldo \n","Error, cantidad invalida\n");
@@ -381,7 +381,7 @@ int employeeSueldo(LinkedList* listaEmpleados, int index, Employee auxiliar)
 		utn_getInt(&opciones,0,1,3,"\n¿Esta seguro que desea modificarlo? (1/0)\n","\nRespuesta invalida, ingrese [1/0]\n");
 		if(opciones)
 		{
-			employee_modifySueldo(listaEmpleados,index,auxSueldo);
+			employee_modifySueldo(empleados,index,auxSueldo);
 			rtn=0;
 		}
 		else
@@ -558,7 +558,7 @@ int employeeGets(Employee* this, int* id, char* nombre, int* horasTrabajadas, in
 
 
 
-int ObtenerMayorId (LinkedList* listaEmpleados)
+int ObtenerMayorId (LinkedList* empleados)
 {
 	int mayorId=0;
 	int id;
@@ -566,15 +566,15 @@ int ObtenerMayorId (LinkedList* listaEmpleados)
 	int i;
 	Employee* aux;
 
-	if(listaEmpleados!=NULL)
+	if(empleados!=NULL)
 	{
-		len = ll_len(listaEmpleados);
+		len = ll_len(empleados);
 
 		if(len>0)
 		{
 			for(i=0;i<len;i++)
 			{
-				aux = (Employee*)ll_get(listaEmpleados,i);
+				aux = (Employee*)ll_get(empleados,i);
 				employee_getId(aux,&id);
 
 				if(i==0 || (mayorId<id))
@@ -753,14 +753,14 @@ int employee_compareBySueldo(void* empleado1, void* empleado2)
 }
 
 
-int employee_modifyNombre(LinkedList* listaEmpleados, int index, char* auxNombre)
+int employee_modifyNombre(LinkedList* empleados, int index, char* auxNombre)
 {
 	int rtn = -1;
 	Employee* aux;
 
-	if(listaEmpleados!=NULL && index>=0 && auxNombre!=NULL)
+	if(empleados!=NULL && index>=0 && auxNombre!=NULL)
 	{
-		aux = (Employee*) ll_get(listaEmpleados,index);
+		aux = (Employee*) ll_get(empleados,index);
 		SizeString(auxNombre);
 
 		if(aux!=NULL)
@@ -779,15 +779,15 @@ int employee_modifyNombre(LinkedList* listaEmpleados, int index, char* auxNombre
 
 	return rtn;
 }
-int employee_modifyHorasTrabajadas(LinkedList* listaEmpleados, int index, int auxHoras)
+int employee_modifyHorasTrabajadas(LinkedList* empleados, int index, int auxHoras)
 {
 	int rtn = -1;
 	Employee* aux;
 
-	if(listaEmpleados!=NULL && index>=0 && auxHoras>0)
+	if(empleados!=NULL && index>=0 && auxHoras>0)
 	{
 
-		aux = (Employee*) ll_get(listaEmpleados,index);
+		aux = (Employee*) ll_get(empleados,index);
 
 		if(aux!=NULL)
 		{
@@ -804,15 +804,15 @@ int employee_modifyHorasTrabajadas(LinkedList* listaEmpleados, int index, int au
 	}
 	return rtn;
 }
-int employee_modifySueldo(LinkedList* listaEmpleados, int index, int auxSueldo)
+int employee_modifySueldo(LinkedList* empleados, int index, int auxSueldo)
 {
 	int rtn = -1;
 	Employee* aux;
 
-	if(listaEmpleados!=NULL && index>=0 && auxSueldo>=1000)
+	if(empleados!=NULL && index>=0 && auxSueldo>=1000)
 	{
 
-		aux = (Employee*) ll_get(listaEmpleados,index);
+		aux = (Employee*) ll_get(empleados,index);
 
 		if(aux!=NULL)
 		{
