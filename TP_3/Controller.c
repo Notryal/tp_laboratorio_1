@@ -14,8 +14,8 @@
  */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 {
-	int aux;
-	aux = -1;
+	//int aux;
+	//aux = -1;
 
 	FILE* pArchivo;
 
@@ -28,13 +28,13 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 			if(!parser_EmployeeFromText(pArchivo, pArrayListEmployee))
 			{
 				//puts("Se cargo con exito\n");
-				aux=1;
+				//aux=1;
 			}
 		}
 		else
 		{
 			//puts("Error al abrir el archivo\n");
-			aux=0;
+			//aux=0;
 		}
 		fclose(pArchivo);
 	}
@@ -81,7 +81,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 
 int controller_loadFromTextID(char* path , LinkedList* pArrayListEmployee, int* id)
 {
-	int isOk = -1;
+	int rtn = -1;
 	FILE* pArchivo;
 
 	if(path!=NULL && pArrayListEmployee!=NULL)
@@ -92,13 +92,13 @@ int controller_loadFromTextID(char* path , LinkedList* pArrayListEmployee, int* 
 		{
 			if(!parser_IdFromText(pArchivo,pArrayListEmployee,id))
 			{
-				isOk = 0;
+				rtn = 0;
 			}
 		}
 		fclose(pArchivo);
 	}
 
-    return isOk;
+    return rtn;
 }
 
 int controller_addEmployee(LinkedList* pArrayListEmployee, int* id)
@@ -251,7 +251,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 				switch(opcion)
 				{
 					case 0:
-						utn_getString("\n¿Esta seguro que desea salir?[si/no]\n","\nRespuesta invalida, ingrese [si/no]\n",4,3,confirmar);
+						utn_getString(confirmar,4,2,"\n¿Esta seguro que desea salir?[si/no]\n","\nRespuesta invalida, ingrese [si/no]\n");
 						ll_deleteLinkedList(clon);
 						break;
 					case 1:
@@ -281,7 +281,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 						}
 						break;
 					case 3:
-						ll_sort(clon,employee_compareByHorasTrabajadas,criterio);
+						ll_sort(clon,employee_compareByHorasTrabajadas,auxiliar);
 						if(auxiliar)
 						{
 							puts("Se ha ordenado la lista por horas ascendente");
@@ -293,7 +293,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 						}
 						break;
 					case 4:
-						ll_sort(clon,employee_compareBySueldo,criterio);
+						ll_sort(clon,employee_compareBySueldo,auxiliar);
 						if(auxiliar)
 						{
 							puts("Se ha ordenado la lista por sueldo ascendente");
@@ -454,38 +454,4 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
     return rtn;
 }
 
-
-
-int controller_saveAsTextID(char* path , LinkedList* pArrayListEmployee, int id)
-{
-	int isOk = -1;
-	int idMayor = 0;
-	FILE* pArchivo;
-
-	if(path!=NULL && pArrayListEmployee!=NULL)
-	{
-		if(id==1000)
-		{
-			idMayor = id;
-			isOk=0;
-		}
-		else
-		{
-			idMayor = ObtenerMayorId(pArrayListEmployee);
-		}
-
-		pArchivo = fopen(path,"w");
-
-		if(pArchivo!= NULL)
-		{
-			fprintf(pArchivo,"Siguiente ID:\n");
-			fprintf(pArchivo,"%d\n",idMayor);
-			isOk=0;
-		}
-
-		fclose(pArchivo);
-	}
-
-	return isOk;
-}
 

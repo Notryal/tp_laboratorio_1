@@ -89,7 +89,7 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 
 int parser_IdFromText(FILE* pFile , LinkedList* pArrayListEmployee, int* id)
 {
-	int isOk = -1;
+	int rtn = -1;
 	char idTxt[128];
 	int idInt;
 	int cantidad = 0;
@@ -103,7 +103,7 @@ int parser_IdFromText(FILE* pFile , LinkedList* pArrayListEmployee, int* id)
 
 			if((cantidad==1) && (header!=1))
 			{
-				isOk = 0;
+				rtn = 0;
 				idInt = atoi(idTxt);
 
 				if(idInt>*id)
@@ -119,5 +119,5 @@ int parser_IdFromText(FILE* pFile , LinkedList* pArrayListEmployee, int* id)
 		while(!feof(pFile));
 	}
 
-    return isOk;
+    return rtn;
 }

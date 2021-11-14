@@ -35,19 +35,20 @@ int employee_getId(Employee* this, int* id);
 int ObtenerMayorId(LinkedList* listaEmpleados);
 int employee_setHorasTrabajadas(Employee* this, int horasTrabajadas);
 int employee_getHorasTrabajadas(Employee* this, int* horasTrabajadas);
-int employee_caseHoras(LinkedList* listaEmpleados, int index, Employee auxiliar);
+int employeeHoras(LinkedList* listaEmpleados, int index, Employee auxiliar);
 int employee_modifyHorasTrabajadas(LinkedList* listaEmpleados, int index, int auxHoras);
 int employee_compareByHorasTrabajadas(void* empleado1, void* empleado2);
+int ObtenerMayorId (LinkedList* listaEmpleados);
 
 int employee_compareById(void* empleado1, void* empleado2);
 int employee_setNombre(Employee* this, char* nombre);
 int employee_getNombre(Employee* this, char* nombre);
-int employee_caseNombre(LinkedList* listaEmpleados, int index, Employee auxiliar);
+int employeeNombre(LinkedList* listaEmpleados, int index, Employee auxiliar);
 int employee_modifyNombre(LinkedList* listaEmpleados, int index, char* auxNombre);
 int employee_compareByNombre(void* empleado1, void* empleado2);
 int employee_setSueldo(Employee* this, int sueldo);
 int employee_getSueldo(Employee* this, int* sueldo);
-int employee_caseSueldo(LinkedList* listaEmpleados, int index, Employee auxiliar);
+int employeeSueldo(LinkedList* listaEmpleados, int index, Employee auxiliar);
 int employee_modifySueldo(LinkedList* listaEmpleados, int index, int auxSueldo);
 int employee_compareBySueldo(void* empleado1, void* empleado2);
 

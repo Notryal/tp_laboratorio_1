@@ -279,13 +279,13 @@ int employee_modify(LinkedList* listaEmpleados)
 							utn_getString(confirmar,4,3,"\n¿Esta seguro que desea salir?[si/no]\n","\nRespuesta invalida, ingrese [si/no]\n");
 							break;
 						case 1:
-							employee_caseNombre(listaEmpleados,index,auxiliar);
+							employeeNombre(listaEmpleados,index,auxiliar);
 							break;
 						case 2:
-							employee_caseHoras(listaEmpleados,index,auxiliar);
+							employeeHoras(listaEmpleados,index,auxiliar);
 							break;
 						case 3:
-							employee_caseSueldo(listaEmpleados,index,auxiliar);
+							employeeSueldo(listaEmpleados,index,auxiliar);
 							break;
 					}
 				}while(stricmp(confirmar,"si"));
@@ -318,13 +318,13 @@ int employeeNombre(LinkedList* listaEmpleados, int index, Employee auxiliar)
 	if(listaEmpleados!=NULL && index!=-1)
 	{
 		printf("\t****MODIFICAR NOMBRE****\t\n");
-		utn_getString("Ingrese el nuevo nombre\n","Error, nombre invalido\n",128,3,auxNombre);
+		utn_getString(auxNombre,128,3,"Ingrese el nuevo nombre\n","Error, nombre invalido\n");
 		SizeString(auxNombre);
 
 		strcpy(auxiliar.nombre,auxNombre);
 		employee_printOneEmployee(&auxiliar);
 
-		utn_getInt("\n¿Esta seguro que desea modificarlo? [1/0]\n","\nRespuesta invalida, ingrese [1/0]\n",0,1,3,&opciones);
+		utn_getInt(&opciones,0,1,3,"\n¿Esta seguro que desea modificarlo? [1/0]\n","\nRespuesta invalida, ingrese [1/0]\n");
 		if(opciones)
 		{
 			employee_modifyNombre(listaEmpleados,index,auxNombre);
@@ -489,6 +489,54 @@ int employee_setSueldo(Employee* this, int sueldo)
 	return aux;
 }
 //
+int employee_getId(Employee* this, int* id)
+{
+	int rtn = -1;
+
+	if(this!=NULL && id!=NULL)
+	{
+		*id = this->id;
+		rtn=0;
+	}
+
+	return rtn;
+}
+int employee_getNombre(Employee* this, char* nombre)
+{
+	int rtn = -1;
+
+	if(this!=NULL && nombre!=NULL)
+	{
+		strcpy(nombre,this->nombre);
+		rtn=0;
+	}
+
+	return rtn;
+}
+int employee_getHorasTrabajadas(Employee* this, int* horasTrabajadas)
+{
+	int rtn = -1;
+
+	if(this!=NULL && horasTrabajadas!=NULL)
+	{
+		*horasTrabajadas = this->horasTrabajadas;
+		rtn=0;
+	}
+
+	return rtn;
+}
+int employee_getSueldo(Employee* this, int* sueldo)
+{
+	int rtn = -1;
+
+	if(this!=NULL && sueldo!=NULL)
+	{
+		*sueldo = this->sueldo;
+		rtn=0;
+	}
+
+	return rtn;
+}
 
 int employeeGets(Employee* this, int* id, char* nombre, int* horasTrabajadas, int* sueldo)
 {
@@ -507,6 +555,39 @@ int employeeGets(Employee* this, int* id, char* nombre, int* horasTrabajadas, in
 
 	return rtn;
 }
+
+
+
+int ObtenerMayorId (LinkedList* listaEmpleados)
+{
+	int mayorId=0;
+	int id;
+	int len;
+	int i;
+	Employee* aux;
+
+	if(listaEmpleados!=NULL)
+	{
+		len = ll_len(listaEmpleados);
+
+		if(len>0)
+		{
+			for(i=0;i<len;i++)
+			{
+				aux = (Employee*)ll_get(listaEmpleados,i);
+				employee_getId(aux,&id);
+
+				if(i==0 || (mayorId<id))
+				{
+					mayorId=id;
+				}
+			}
+		}
+	}
+
+	return mayorId;
+}
+
 
 
 int employee_menuModify()
@@ -552,4 +633,199 @@ int employee_subMenuOrden()
 	utn_getInt(&opcion,1,10,3,"\nIngrese una opcion: ","\nError, opcion invalida: ");
 
 	return opcion;
+}
+
+int employee_compareById(void* empleado1, void* empleado2)
+{
+	int resultado = 0;//si son iguales
+	Employee* emp1 = NULL;
+	Employee* emp2 = NULL;
+	int id1;
+	int id2;
+
+	if(empleado1!=NULL && empleado2!=NULL)
+	{
+		emp1 = (Employee*) empleado1;
+		emp2 = (Employee*) empleado2;
+
+		if((!employee_getId(emp1,&id1)) && (!employee_getId(emp2,&id2)))
+		{
+			if(id1 > id2)//mayores
+			{
+				resultado = 1;
+			}
+			else
+			{
+				if(id1 < id2)//menores
+				{
+					resultado = -1;
+				}
+			}
+		}
+	}
+
+	return resultado;
+}
+int employee_compareByNombre(void* empleado1, void* empleado2)
+{
+	int resultado = -1;
+	Employee* emp1 = NULL;
+	Employee* emp2 = NULL;
+	char nombre1[128];
+	char nombre2[128];
+
+	if(empleado1!=NULL && empleado2!=NULL)
+	{
+		emp1 = (Employee*) empleado1;
+		emp2 = (Employee*) empleado2;
+
+		if((!employee_getNombre(emp1,nombre1)) && (!employee_getNombre(emp2,nombre2)))
+		{
+			resultado = strcmp(nombre1,nombre2);
+		}
+	}
+
+	return resultado;
+}
+
+int employee_compareByHorasTrabajadas(void* empleado1, void* empleado2)
+{
+	int resultado = 0;//si son iguales
+	Employee* emp1;
+	Employee* emp2;
+	int horas1;
+	int horas2;
+
+	if(empleado1!=NULL && empleado2!=NULL)
+	{
+		emp1 = (Employee*) empleado1;
+		emp2 = (Employee*) empleado2;
+
+		if((!employee_getHorasTrabajadas(emp1,&horas1)) && (!employee_getHorasTrabajadas(emp2,&horas2)))//mayores
+		{
+			if(horas1 > horas2)//menores
+			{
+				resultado = 1;
+			}
+			else
+			{
+				if(horas1 < horas2)//menores
+				{
+					resultado = -1;
+				}
+			}
+		}
+	}
+
+	return resultado;
+}
+
+int employee_compareBySueldo(void* empleado1, void* empleado2)
+{
+	int resultado = 0;//si son iguales
+	Employee* emp1 = NULL;
+	Employee* emp2 = NULL;
+	int sueldo1;
+	int sueldo2;
+
+	if(empleado1!=NULL && empleado2!=NULL)
+	{
+		emp1 = (Employee*) empleado1;
+		emp2 = (Employee*) empleado2;
+
+		if((!employee_getSueldo(emp1,&sueldo1)) && (!employee_getSueldo(emp2,&sueldo2)))
+		{
+			if(sueldo1 > sueldo2)//mayores
+			{
+				resultado=1;
+			}
+			else
+			{
+				if(sueldo1 < sueldo2)//menores
+				{
+					resultado=-1;
+				}
+			}
+		}
+	}
+
+	return resultado;
+}
+
+
+int employee_modifyNombre(LinkedList* listaEmpleados, int index, char* auxNombre)
+{
+	int rtn = -1;
+	Employee* aux;
+
+	if(listaEmpleados!=NULL && index>=0 && auxNombre!=NULL)
+	{
+		aux = (Employee*) ll_get(listaEmpleados,index);
+		SizeString(auxNombre);
+
+		if(aux!=NULL)
+		{
+			if(!employee_setNombre(aux,auxNombre))
+			{
+				printf("Se cargo correctamente el nuevo nombre\n");
+			}
+			else
+			{
+				printf("No se pudo modificar el nombre\n");
+			}
+			rtn=0;
+		}
+	}
+
+	return rtn;
+}
+int employee_modifyHorasTrabajadas(LinkedList* listaEmpleados, int index, int auxHoras)
+{
+	int rtn = -1;
+	Employee* aux;
+
+	if(listaEmpleados!=NULL && index>=0 && auxHoras>0)
+	{
+
+		aux = (Employee*) ll_get(listaEmpleados,index);
+
+		if(aux!=NULL)
+		{
+			if(!employee_setHorasTrabajadas(aux,auxHoras))
+			{
+				printf("Se cargo correctamente la nueva cantidad de horas\n");
+			}
+			else
+			{
+				printf("No se pudo modificar las horas\n");
+			}
+			rtn=0;
+		}
+	}
+	return rtn;
+}
+int employee_modifySueldo(LinkedList* listaEmpleados, int index, int auxSueldo)
+{
+	int rtn = -1;
+	Employee* aux;
+
+	if(listaEmpleados!=NULL && index>=0 && auxSueldo>=1000)
+	{
+
+		aux = (Employee*) ll_get(listaEmpleados,index);
+
+		if(aux!=NULL)
+		{
+			if(!employee_setSueldo(aux,auxSueldo))
+			{
+				printf("Se cargo correctamente el nuevo sueldo\n");
+			}
+			else
+			{
+				printf("No se pudo modificar el sueldo\n");
+			}
+			rtn=0;
+		}
+	}
+    return rtn;
 }
