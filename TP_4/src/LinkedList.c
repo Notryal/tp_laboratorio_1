@@ -439,7 +439,7 @@ void* ll_pop(LinkedList* this,int index)
 
     	aux = ll_get(this, index);
 
-    	if(returnAux != NULL){
+    	if(aux != NULL){
 
     	ll_remove(this,index);
 
@@ -467,18 +467,17 @@ int ll_contains(LinkedList* this, void* pElement)
 
     if(this != NULL){
 
-    	returnAux= 0;
-
     	aux = ll_indexOf(this,pElement);
 
-    	for(int i = 0; i<ll_len(this); ){
+    	if(aux == -1){
 
-    		if(aux == i){ // verifico si llega hasta esta posicion
+    		returnAux= 0;
 
-    			returnAux = 1;
-    		}
+    	} else{
 
+    		returnAux=1;
     	}
+
     }
 
     return returnAux;
@@ -502,24 +501,26 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
     if(this != NULL && this2 != NULL)
     {
 
-    	if(!ll_isEmpty(this2) && !ll_isEmpty(this))//si las listas no estan vacias
-    	{
+    	//if(!ll_isEmpty(this2) && !ll_isEmpty(this))//si las listas no estan vacias
+    	//{ //las listas pueden llegar vacias?
+    		returnAux = 1;
+
     		for(i=0; i<ll_len(this2) ;i++)//recorro
     		{
     			pElement2 = ll_get(this2,i);//elemento de thi2
 
     			if(pElement2 != NULL)
     			{
-    				if(!ll_contains(this,pElement2))//comparo elemento
+    				if(ll_contains(this,pElement2) == 0)//comparo elemento
     				{
-    					returnAux = 0;//contiene a los elementos
+    					returnAux = 0;//no contiene a los elementos
     					break;
     				}
     			}
-    		}
+    		//}
     	}
 
-    	returnAux = 1;
+
     }
 
     return returnAux;
@@ -572,6 +573,7 @@ LinkedList* ll_clone(LinkedList* this)
     if(this != NULL)
     {
     	clone = ll_subList(this,0,ll_len(this));
+
     }
 
     return clone;
@@ -585,6 +587,7 @@ LinkedList* ll_clone(LinkedList* this)
  * \return int Retorna  (-1) Error: si el puntero a la listas es NULL
                                 ( 0) Si ok
  */
+
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
     int returnAux = -1;
@@ -606,20 +609,20 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
     			pElementA = ll_get(this,i);//primer recorrida
     			pElementB = ll_get(this,j);//elemento de mi segunda recorrida
 
-    			if(pFunc(pElementB,pElementA)>0 && order==1)//si es p1 es mayor a p2, ascendente
+    			if(pFunc(pElementA,pElementB)>0 && order==1)//si es p1 es mayor a p2, ascendente
     			{
     				 //pAux = pElement1;
-    				 ll_set(this,i,pElementA);//pongo al menor
-    				 ll_set(this,j,pElementB);
+    				 ll_set(this,i,pElementB);//pongo al menor
+    				 ll_set(this,j,pElementA);
     				 returnAux = 0;
     			}
     			else
     			{
-    				if(pFunc(pElementB,pElementA)<=0 && order==0)//si p1 es menor a p2, descendente
+    				if(pFunc(pElementA,pElementB)<0 && order==0)//si p1 es menor a p2, descendente
     				{
     					//pAux = pElement1;
-    					ll_set(this,i,pElementA);//pongo al mayor
-    					ll_set(this,j,pElementB);
+    					ll_set(this,i,pElementB);//pongo al mayor
+    					ll_set(this,j,pElementA);
     					returnAux = 0;
     				}
     			}
@@ -631,6 +634,14 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 }
 
 
+/*
+ *La función “ll_count” recibirá una lista y una función criterio “fn”. Se deberá iterar todos los elementos
+de la lista y pasárselos a la funcion “fn”. La función “fn” devolverá la cantidad que debe contarse segun
+el criterio. La función “ll_count” almacenará un acumulador al cual sumará el valor de retorno de “fn” en
+cada iteración. Al finalizar las iteraciones, la función “ll_count” devolverá el valor acumulado.
+ *
+ */
+
 
 int ll_count(LinkedList* this, int (*fn)(void* element)){
 
@@ -639,18 +650,24 @@ int ll_count(LinkedList* this, int (*fn)(void* element)){
 
 	return returnAux;
 }
+
+/*
+ * La función “ll_filter” recibirá una lista y una función criterio “fn”. Se deberá iterar todos los elementos
+de la lista y pasarlos a la función “fn”. La función “fn” devolverá 1 si ese ítem se debe agregar a la
+lista resultado o 0 si no debe agregarse. La función “ll_filter” generará la nueva lista resultado,
+agregará a la misma los ítems correspondientes y la devolverá.
+ *
+ *
+ */
+
 LinkedList* ll_filter(LinkedList* this, int (*fn)(void* element)){
 
 	LinkedList* returnAux = NULL;
 	returnAux = ll_newLinkedList();
 
-
 	return returnAux;
 
-
 }
-
-
 
 
 
