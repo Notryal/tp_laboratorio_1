@@ -406,15 +406,15 @@ int ll_isEmpty(LinkedList* this)
 int ll_push(LinkedList* this, int index, void* pElement)
 {
     int returnAux = -1;
-    //Node* pNodeAux;
+
 
     if(this != NULL && index > -1 && index <= ll_len(this)){
 
-    	//pNodeAux->pElement = pElement;
+
 
     	returnAux = addNode(this,index,pElement);//le paso su posicion y lo que quiero guardar
 
-    	//add node me retorna 0
+
     }
 
     return returnAux;
@@ -467,15 +467,12 @@ int ll_contains(LinkedList* this, void* pElement)
 
     if(this != NULL){
 
+    	returnAux=0;
+
     	aux = ll_indexOf(this,pElement);
 
-    	if(aux == -1){
-
-    		returnAux= 0;
-
-    	} else{
-
-    		returnAux=1;
+    	if(!aux){
+    		returnAux= 1;
     	}
 
     }
@@ -496,31 +493,28 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
 {
     int returnAux = -1;
     int i;
-    void* pElement2 = NULL;
+    void* pElement = NULL;
 
     if(this != NULL && this2 != NULL)
     {
+    	returnAux = 1;
 
-    	//if(!ll_isEmpty(this2) && !ll_isEmpty(this))//si las listas no estan vacias
-    	//{ //las listas pueden llegar vacias?
-    		returnAux = 1;
-
-    		for(i=0; i<ll_len(this2) ;i++)//recorro
+    	if(!ll_isEmpty(this2) && !ll_isEmpty(this))
+    	{
+    		for(i=0; i<ll_len(this2) ;i++)
     		{
-    			pElement2 = ll_get(this2,i);//elemento de thi2
+    			pElement = ll_get(this2,i);
 
-    			if(pElement2 != NULL)
+    			if(pElement != NULL)
     			{
-    				if(ll_contains(this,pElement2) == 0)//comparo elemento
+    				if(!ll_contains(this,pElement))
     				{
-    					returnAux = 0;//no contiene a los elementos
-    					break;
+    					returnAux = 0;
+    					break;//si no encuentra algo, termina
     				}
     			}
-    		//}
+    		}
     	}
-
-
     }
 
     return returnAux;
@@ -604,27 +598,19 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 
     	for(i=0; i<len-1 ;i++)
     	{
+    		pElementA = ll_get(this,i);//primer recorrida
+
     		for(j=i+1; j<len ;j++)
     		{
-    			pElementA = ll_get(this,i);//primer recorrida
+
     			pElementB = ll_get(this,j);//elemento de mi segunda recorrida
 
-    			if(pFunc(pElementA,pElementB)>0 && order==1)//si es p1 es mayor a p2, ascendente
+    			if((pFunc(pElementA,pElementB)>0 && order==1) || (pFunc(pElementA,pElementB)<0 && order==0))
+    				//si es p1 es mayor a p2, ascendente
     			{
-    				 //pAux = pElement1;
     				 ll_set(this,i,pElementB);//pongo al menor
     				 ll_set(this,j,pElementA);
     				 returnAux = 0;
-    			}
-    			else
-    			{
-    				if(pFunc(pElementA,pElementB)<0 && order==0)//si p1 es menor a p2, descendente
-    				{
-    					//pAux = pElement1;
-    					ll_set(this,i,pElementB);//pongo al mayor
-    					ll_set(this,j,pElementA);
-    					returnAux = 0;
-    				}
     			}
     		}
     	}
